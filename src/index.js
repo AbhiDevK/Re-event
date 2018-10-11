@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "semantic-ui-css/semantic.min.css";
 import App from "./app/layout/App";
 import * as serviceWorker from "./serviceWorker";
 
@@ -9,6 +10,8 @@ const rootEl = document.getElementById("root");
 const render = () => {
   ReactDOM.render(<App />, rootEl);
 };
+
+// Hot module reload accelerated
 if (module.hot) {
   module.hot.accept("./app/layout/App", () => {
     setTimeout(render);
