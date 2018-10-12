@@ -29,8 +29,8 @@ class EventListItem extends Component {
           </Segment>
           <Segment secondary>
             <List horizontal>
-              {/* For each attendee create a EventListAttendee Component */}
-              {event.attendees.map(attendee => (
+              {/*check if attendees are exist and For each attendee create a EventListAttendee Component */}
+              {event.attendee && event.attendees.map(attendee => (
                 <EventListAttendee
                   key={attendee.id}
                   /*pass the attendee data */
