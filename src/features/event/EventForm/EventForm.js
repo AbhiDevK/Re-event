@@ -1,21 +1,56 @@
 import React, { Component } from "react";
 import { Segment, Form, Button } from "semantic-ui-react";
 
+// keeping track of the each input form fields with state
+//start with an empty object(empty event)
+const emptyEvent = {
+  title: "",
+  date: "",
+  city: "",
+  venue: "",
+  hostedBy: ""
+};
+
 class EventForm extends Component {
-  // keeping track of the each input form feilds with state
+  //set the state initially to emptyEvent
   state = {
-    event: {
-      title: "",
-      date: "",
-      city: "",
-      venue: "",
-      hostedBy: ""
-    }
+    event: emptyEvent
   };
+
+  //1. set the state to the passed selectedEvent the event state
+  componentDidMount() {
+    //check weather selectedEvent present then set the state
+    if (this.props.selectedEvent) {
+      this.setState({
+        event: this.props.selectedEvent
+      });
+    }
+  }
+
+  //2. re-render form everytime props changes in the component
+  componentWillReceiveProps(nextProps) {
+    //check weather props is actually changed
+    if (nextProps.selectedEvent !== this.props.selectedEvent) {
+      //if changed change the state to changed props
+      //and fallback to emptyEvent(or-else when we click (Create Form) state will set to Null and we can't access any property from those)
+      this.setState({
+        event: nextProps.selectedEvent || emptyEvent
+      });
+    }
+  }
 
   handleFormSubmit = e => {
     e.preventDefault();
-    this.props.handleCreateEvent(this.state.event);
+    //only the already created forms have an id and newly creating forms doesn't so
+    //1. if id exists call UpdateEvent with that event passed
+    if (this.state.event.id) {
+      this.props.handleUpdateEvent(this.state.event);
+    }
+    //2. if id not der means its a new form being created so call createEvent
+    else {
+      this.props.handleCreateEvent(this.state.event);
+    }
+    e.currentTarget.reset()
   };
   // On input changes update the state with taking a copy of state
   onInputChange = e => {

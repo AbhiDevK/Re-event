@@ -3,7 +3,7 @@ import EventListItem from "./EventListItem";
 class EventList extends Component {
   render() {
     // Destructure the events from props
-    const { events } = this.props;
+    const { events, handleOpenEvent, handleDeleteEvent } = this.props;
     return (
       <div>
         <h1>Event list</h1>
@@ -13,6 +13,8 @@ class EventList extends Component {
             key={event.id}
             /* pass each event data with it */
             event={event}
+            handleOpenEvent={handleOpenEvent}
+            handleDeleteEvent={handleDeleteEvent}
           />
         ))}
       </div>
